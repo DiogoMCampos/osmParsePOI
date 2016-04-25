@@ -23,3 +23,8 @@ Export a ".osm" file from OpenStreetMap, run osmParsePOI and input the name of t
 nodeID;pointType;pointName
 ```
 The nodeID will correspond to the ID of the node where that point is located. 
+
+## Project Members
+ * [Caramelo18](https://github.com/Caramelo18)
+ * [DiogoMCampos](https://github.com/DiogoMCampos)
+ * [williamnf](https://github.com/williamnf)
