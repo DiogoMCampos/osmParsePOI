@@ -17,7 +17,7 @@ public:
 	bool isValidOSMFile();
 	void store();
 	bool readNodes();
-	void getPOI(std::string nodeID);
-	void getName(std::string nodeID, std::string type, std::string key);
+	void getPOI(std::string nodeID, std::string lat, std::string lon);
+	void getName(std::string nodeID, std::string type, std::string key, std::string lat, std::string lon);
 	void getNextTag(std::string &line);
 };

@@ -1,13 +1,19 @@
 #include <string>
 
+using namespace std;
+
 class POI {
 private:
-	std::string nodeID;
-	std::string type;
-	std::string name;
+	string nodeID;
+	string type;
+	string name;
+	string lat;
+	string lon;
 public:
-	POI(std::string nodeID, std::string type, std::string name): nodeID(nodeID), type(type), name(name) {};
-	std::string getNodeID() {return nodeID;}
-	std::string getType() {return type;}
-	std::string getName() {return name;}
+	POI(string nodeID, string type, string name, string lat, string lon): nodeID(nodeID), type(type), name(name), lat(lat), lon(lon) {};
+	string getNodeID() {return nodeID;}
+	string getType() {return type;}
+	string getName() {return name;}
+	string getLat() {return lat;}
+	string getLon() {return lon;}
 };

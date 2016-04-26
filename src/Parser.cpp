@@ -63,9 +63,9 @@ bool Parser::isValidOSMFile() {
 }
 
 void Parser::store() {
-	destFile << poiList[0].getNodeID() << ";" << poiList[0].getType() << ";" << poiList[0].getName();
+	destFile << poiList[0].getNodeID() << ";" << poiList[0].getType() << ";" << poiList[0].getName() << ";" << poiList[0].getLat() << ";" << poiList[0].getLon();
 	for (size_t i = 1; i < poiList.size(); ++i) {
-		destFile << "\n" << poiList[i].getNodeID() << ";" << poiList[i].getType() << ";" << poiList[i].getName();
+		destFile << "\n" << poiList[i].getNodeID() << ";" << poiList[i].getType() << ";" << poiList[i].getName() << ";" << poiList[i].getLat() << ";" << poiList[i].getLon();
 	}
 }
 
@@ -92,14 +92,22 @@ bool Parser::readNodes() {
 		int idLength = nodeInfo.find('"', firstDelim + 1) - firstDelim - 1;
 		string idString = nodeInfo.substr(firstDelim + 1, idLength);
 
-		getPOI(idString);
+		int beginLat = nodeInfo.find("lat=") + 4;
+		int endLat = nodeInfo.find('"', beginLat + 4) - beginLat - 1;
+		string latitude = nodeInfo.substr(beginLat + 1, endLat);
+
+		int beginLon = nodeInfo.find("lon=") + 4;
+		int endLon = nodeInfo.find('"', beginLon + 4) - beginLon - 1;
+		string longitude = nodeInfo.substr(beginLon + 1, endLon);
+
+		getPOI(idString, latitude, longitude);
 	}
 
 	return true;
 
 }
 
-void Parser::getPOI(string nodeID) {
+void Parser::getPOI(string nodeID, string lat, string lon) {
 	string line;
 	getNextTag(line);
 	while (line[0] != '/') {
@@ -111,15 +119,15 @@ void Parser::getPOI(string nodeID) {
 			getline(osmFile, type, '\"');
 			getline(osmFile, line); // garbage
 			if (type == "atm")
-				getName(nodeID, type, "k=\"operator\"");
+				getName(nodeID, type, "k=\"operator\"", lat, lon);
 			else if (type == "restaurant")
-				getName(nodeID, type, "k=\"name\"");
+				getName(nodeID, type, "k=\"name\"", lat, lon);
 			else if (type == "pharmacy")
-				getName(nodeID, type, "k=\"name\"");
+				getName(nodeID, type, "k=\"name\"", lat, lon);
 			else if (type == "hospital")
-				getName(nodeID, type, "k=\"name\"");
+				getName(nodeID, type, "k=\"name\"", lat, lon);
 			else if (type == "fuel")
-				getName(nodeID, type, "k=\"brand\"");
+				getName(nodeID, type, "k=\"brand\"", lat, lon);
 			else {
 				getNextTag(line);
 			}
@@ -131,7 +139,7 @@ void Parser::getPOI(string nodeID) {
 	}
 }
 
-void Parser::getName(std::string nodeID, std::string type, std::string key) {
+void Parser::getName(string nodeID, string type, string key, string lat, string lon) {
 	string line;
 	string name = "";
 
@@ -145,7 +153,7 @@ void Parser::getName(std::string nodeID, std::string type, std::string key) {
 		}
 		getNextTag(line);
 	}
-	POI temp(nodeID, type, name);
+	POI temp(nodeID, type, name, lat, lon);
 	poiList.push_back(temp);
 }
 
