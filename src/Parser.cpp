@@ -63,9 +63,9 @@ bool Parser::isValidOSMFile() {
 }
 
 void Parser::store() {
-	destFile << poiList[0].getNodeID() << ";" << poiList[0].getType() << ";" << poiList[0].getName() << ";" << poiList[0].getLat() << ";" << poiList[0].getLon();
+	destFile << poiList[0].getNodeID() << ";" << poiList[0].getType() << ";;" << poiList[0].getName() << ";;" << poiList[0].getLat() << ";" << poiList[0].getLon();
 	for (size_t i = 1; i < poiList.size(); ++i) {
-		destFile << "\n" << poiList[i].getNodeID() << ";" << poiList[i].getType() << ";" << poiList[i].getName() << ";" << poiList[i].getLat() << ";" << poiList[i].getLon();
+		destFile << "\n" << poiList[i].getNodeID() << ";" << poiList[i].getType() << ";;" << poiList[i].getName() << ";;" << poiList[i].getLat() << ";" << poiList[i].getLon();
 	}
 }
 

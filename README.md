@@ -20,7 +20,7 @@ It is easy to modify the program to extract information about other amenities, f
 
 Export a ".osm" file from OpenStreetMap, run osmParsePOI and input the name of the file. It will save the results as "poi.txt" with the following format:
 ```
-nodeID;pointType;pointName;latitude;longitude
+nodeID;pointType;;pointName;;latitude;longitude
 ```
 The nodeID will correspond to the ID of the node where that point is located. 
 
